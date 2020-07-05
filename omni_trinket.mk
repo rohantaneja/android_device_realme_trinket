@@ -1,7 +1,5 @@
-#
-# Copyright (C) 2019 The Android Open Source Project
-# Copyright (C) 2019 The TWRP Open Source Project
-# Copyright (C) 2020 SebaUbuntu's TWRP device tree generator 
+##
+# Copyright (C) 2020 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,26 +14,26 @@
 # limitations under the License.
 #
 
-# Specify phone tech before including full_phone
-$(call inherit-product, vendor/omni/config/gsm.mk)
+# Release name
+PRODUCT_RELEASE_NAME := trinket
 
-# Inherit some common Omni stuff.
-$(call inherit-product, vendor/omni/config/common.mk)
 $(call inherit-product, build/target/product/embedded.mk)
 
-# Inherit Telephony packages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
 
-# Inherit language packages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# Inherit 64bit support
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-
-# Device identifier. This must come after all inclusions
+## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := trinket
 PRODUCT_NAME := omni_trinket
 PRODUCT_BRAND := realme
-PRODUCT_MODEL := RMX2030
+PRODUCT_MODEL := realme 5
 PRODUCT_MANUFACTURER := realme
-PRODUCT_RELEASE_NAME := RMX2030
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=RMX2030 \
+    BUILD_PRODUCT=RMX2030 \
+    TARGET_DEVICE=RMX2030
+
+# HACK: Set vendor patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.build.security_patch=2099-12-31
